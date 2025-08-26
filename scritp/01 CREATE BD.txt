@@ -1,0 +1,860 @@
+
+CREATE TABLE tb_actividad
+(
+	id_proyecto  integer  NULL ,
+	id_actividad  integer  NOT NULL ,
+	v_cod_tipo_act  CHAR(5)  NULL ,
+	v_descripcion  character(2000)  NULL ,
+	d_fec_act  timestamp  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	f_fecha_reg_cre  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	f_fecha_reg_mod  integer  NULL ,
+	b_estado  CHAR(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_actividad
+	ADD CONSTRAINT  XPKtb_actividad PRIMARY KEY    (id_actividad  )
+;
+
+ 
+
+CREATE TABLE tb_categoria
+(
+	id_categoria  integer  NOT NULL ,
+	v_descripcion  varchar(200)  NULL ,
+	b_estado  char(1)  NULL ,
+	i_id_usuario_crea  integer  NOT NULL ,
+	f_fecha_reg_crea  timestamp  NOT NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	f_fecha_reg_mod  timestamp  NULL 
+)
+;
+
+
+ALTER TABLE tb_categoria
+	ADD CONSTRAINT  XPKtb_categoria PRIMARY KEY    (id_categoria  )
+;
+
+
+CREATE TABLE tb_categoria_det
+(
+	id_categoria  integer  NOT NULL ,
+	id_subcateg  integer  NOT NULL 
+)
+;
+
+
+ALTER TABLE tb_categoria_det
+	ADD CONSTRAINT  XPKtb_categoria_det PRIMARY KEY    (id_categoria  ,id_subcateg  )
+;
+
+
+CREATE TABLE tb_codigos
+(
+	id_codigo  integer  NOT NULL ,
+	v_cod_tipo  varchar(5)  NULL ,
+	v_descripcion  varchar(50)  NULL ,
+	v_descr_corta  varchar(20)  NULL ,
+	b_estado  varchar(20)  NULL ,
+	v_tipo  varchar(20)  NULL 
+)
+;
+
+
+ALTER TABLE tb_codigos
+	ADD CONSTRAINT  XPKtb_codigos PRIMARY KEY    (id_codigo  )
+;
+
+
+CREATE TABLE tb_cotizacion
+(
+	id_dep  CHAR(2)  NULL ,
+	id_pro  CHAR(2)  NULL ,
+	id_dis  CHAR(2)  NULL ,
+	id_persona  integer  NULL ,
+	id_cotizacion  integer  NOT NULL ,
+	v_nro_cotiza  CHAR(10)  NULL ,
+	d_fecha_cotiza  timestamp  NULL ,
+	id_empleado_vendedor  integer  NULL ,
+	i_nro_cotiza_correl  NUMERIC(10,0)  NULL ,
+	v_anio_cotiza  CHAR(4)  NULL ,
+	s_cod_etapa  CHAR(5)  NULL ,
+	v_descripcion  varchar(200)  NULL 
+)
+;
+
+
+ALTER TABLE tb_cotizacion
+	ADD CONSTRAINT  XPKtb_cotizacion PRIMARY KEY    (id_cotizacion  )
+;
+
+
+CREATE TABLE tb_cotizacion_det
+(
+	id_cotizacion  integer  NOT NULL 
+)
+;
+
+
+ALTER TABLE tb_cotizacion_det
+	ADD CONSTRAINT  XPKtb_cotizacion_det PRIMARY KEY    (id_cotizacion  )
+;
+
+
+CREATE TABLE tb_egreso
+(
+	id_persona  integer  NULL ,
+	id_empresa  integer  NULL ,
+	id_proyecto  integer  NULL ,
+	id_egreso  integer  NOT NULL ,
+	id_categoria  integer  NULL ,
+	id_subcateg  integer  NULL ,
+	v_cod_doc  CHAR(5)  NULL ,
+	v_num_doc  varchar(20)  NULL ,
+	d_fec_emi  timestamp  NULL ,
+	n_tasa_igv  integer  NULL ,
+	n_igv_mon  NUMERIC(10,2)  NULL ,
+	n_monto  NUMERIC(10,2)  NULL ,
+	d_fec_venc  timestamp  NULL ,
+	v_serie_doc  CHAR(2)  NULL ,
+	v_cod_doc_ref  CHAR(5)  NULL ,
+	v_num_doc_ref  varchar(20)  NULL ,
+	d_fec_emi_ref  timestamp  NULL ,
+	v_serie_doc_ref  CHAR(2)  NULL ,
+	v_cod_tipo_conver  varchar(20)  NULL ,
+	v_tipo_camb  NUMERIC(10,2)  NULL ,
+	d_fec_camb  timestamp  NULL ,
+	v_glosa  character(2000)  NULL ,
+	v_cod_compra  CHAR(5)  NULL ,
+	v_cod_subdiario  CHAR(5)  NULL ,
+	v_cod_moned  varchar(20)  NULL ,
+	i_id_usuario_cre  char(18)  NULL ,
+	d_fecha_reg_cre  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	d_fecha_reg_mod  timestamp  NULL ,
+	b_estado  CHAR(1)  NULL ,
+	s_cod_etapa  CHAR(5)  NULL 
+)
+;
+
+
+ALTER TABLE tb_egreso
+	ADD CONSTRAINT  XPKtb_egreso PRIMARY KEY    (id_egreso  )
+;
+
+
+CREATE TABLE tb_empleado
+(
+	id_persona  integer  NULL ,
+	id_empleado  integer  NOT NULL ,
+	b_estado  char(1)  NULL ,
+	v_cod_estapa  varchar(5)  NULL ,
+	i_id_usuario_crea  integer  NOT NULL ,
+	f_fecha_reg_crea  timestamp  NOT NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	f_fecha_reg_mod  timestamp  NULL 
+)
+;
+
+
+ALTER TABLE tb_empleado
+	ADD CONSTRAINT  XPKtb_empleado PRIMARY KEY    (id_empleado  )
+;
+
+alter table tb_empleado 
+	add column v_clave varchar(200);
+
+
+CREATE TABLE tb_empresa
+(
+	id_empresa  integer  NOT NULL ,
+	v_nro_ruc  CHAR(11)  NULL ,
+	v_razon_social  character(2000)  NULL ,
+	v_direccion  character(2000)  NULL ,
+	v_sigla  varchar(20)  NULL ,
+	v_alias  varchar(200)  NULL ,
+	b_estado  char(1)  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	f_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	f_fecha_reg_mod  timestamp  NULL 
+)
+;
+
+
+ALTER TABLE tb_empresa
+	ADD CONSTRAINT  XPKtb_empresa PRIMARY KEY    (id_empresa  )
+;
+
+
+CREATE TABLE tb_empresa_emp_conf
+(
+	id_empresa  integer  NOT NULL ,
+	id_empleado  integer  NOT NULL 
+)
+;
+
+
+ALTER TABLE tb_empresa_emp_conf
+	ADD CONSTRAINT  XPKtb_empresa_emp_conf PRIMARY KEY    (id_empresa  ,id_empleado  )
+;
+
+
+CREATE TABLE tb_grupo
+(
+	id_grupo  integer  NOT NULL ,
+	v_descripcion  varchar(20)  NULL ,
+	b_estado  CHAR(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_grupo
+	ADD CONSTRAINT  XPKtb_grupo PRIMARY KEY    (id_grupo  )
+;
+
+
+CREATE TABLE tb_ingreso
+(
+	id_persona  integer  NULL ,
+	id_empresa  integer  NULL ,
+	id_proyecto  integer  NULL ,
+	id_ingreso  integer  NOT NULL ,
+	s_cod_doc  varchar(20)  NULL ,
+	d_fec_emi  timestamp  NULL ,
+	s_cod_deposi  varchar(20)  NULL ,
+	n_monto  numeric(10,2)  NULL ,
+	n_igv  NUMERIC(10,2)  NULL ,
+	n_total  numeric(10,2)  NULL ,
+	n_detrac  numeric(10,2)  NULL ,
+	n_reten  NUMERIC(10,2)  NULL ,
+	v_glosa  varchar(2000)  NULL ,
+	v_cod_moned  varchar(20)  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	d_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	d_fecha_reg_mod  timestamp  NULL ,
+	b_estado  CHAR(1)  NULL ,
+	s_cod_etapa  CHAR(5)  NULL 
+)
+;
+
+
+ALTER TABLE tb_ingreso
+	ADD CONSTRAINT  XPKtb_ingreso PRIMARY KEY    (id_ingreso  )
+;
+
+
+CREATE TABLE tb_ingreso_det
+(
+	id_ingreso  integer  NULL ,
+	id_ingreso_det  integer  NOT NULL ,
+	id_tipo_prod  integer  NULL ,
+	v_cod_und_medi  CHAR(5)  NULL ,
+	v_descripcion  varchar(20)  NULL ,
+	n_cantidad  NUMERIC(10,0)  NULL ,
+	i_id_usuario_cre  integer  NULL ,
+	d_fecha_reg_cre  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	d_fecha_reg_mod  timestamp  NULL ,
+	b_estado  CHAR(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_ingreso_det
+	ADD CONSTRAINT  XPKtb_ingreso_det PRIMARY KEY    (id_ingreso_det  )
+;
+
+
+CREATE TABLE tb_opciones
+(
+	id_opciones  integer  NOT NULL ,
+	v_descripcion  varchar(100)  NULL ,
+	b_estado  char(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_opciones
+	ADD CONSTRAINT  XPKtb_opciones PRIMARY KEY    (id_opciones  )
+;
+
+
+CREATE TABLE tb_persona_det
+(
+	id_persona  integer  NOT NULL ,
+	id_grupo  integer  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	d_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	d_fecha_reg_mod  timestamp  NULL ,
+	b_estado  CHAR(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_persona_det
+	ADD CONSTRAINT  XPKtb_persona_det PRIMARY KEY    (id_persona  )
+;
+
+
+CREATE TABLE tb_personas
+(
+	id_tipo_pers  INTEGER  NULL ,
+	id_persona  integer  NOT NULL ,
+	id_tipo_doc  integer  NULL ,
+	v_num_doc  varchar(20)  NULL ,
+	v_ape_parterno  character(50)  NULL ,
+	v_ape_materno  character(50)  NULL ,
+	v_nombres_razon  character(200)  NULL ,
+	d_fecha_nac  timestamp  NULL ,
+	v_nro_cel  varchar(20)  NULL ,
+	v_direccion  varchar(200)  NULL ,
+	b_estado  CHAR(1)  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	d_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	d_fecha_reg_mod  timestamp  NULL 
+)
+;
+
+
+ALTER TABLE tb_personas
+	ADD CONSTRAINT  XPKtb_persona PRIMARY KEY    (id_persona  )
+;
+
+
+CREATE TABLE tb_proyecto
+(
+	id_empresa  integer  NULL ,
+	id_dep  CHAR(2)  NULL ,
+	id_pro  CHAR(2)  NULL ,
+	id_dis  CHAR(2)  NULL ,
+	id_proyecto  integer  NOT NULL ,
+	id_cotizacion  integer  NULL ,
+	v_cod_tip_obra  CHAR(5)  NULL ,
+	v_cod_tip_suelo  CHAR(5)  NULL ,
+	d_fec_ini_prog  timestamp  NULL ,
+	d_fec_fin_prog  timestamp  NULL ,
+	d_fec_ini_ejec  timestamp  NULL ,
+	d_fec_fin_ejec  timestamp  NULL ,
+	v_direccion  character(2000)  NULL ,
+	v_descripcion  character(2000)  NULL ,
+	s_cod_etapa  varchar(20)  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	d_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	d_fecha_reg_mod  timestamp  NULL ,
+	b_estado  varchar(20)  NULL 
+)
+;
+
+
+ALTER TABLE tb_proyecto
+	ADD CONSTRAINT  XPKtb_proyecto PRIMARY KEY    (id_proyecto  )
+;
+
+
+CREATE TABLE tb_responsable
+(
+	id_proyecto  integer  NOT NULL ,
+	id_empleado  integer  NOT NULL ,
+	b_estado  CHAR(1)  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	d_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	d_fecha_reg_mod  timestamp  NULL 
+)
+;
+
+
+ALTER TABLE tb_responsable
+	ADD CONSTRAINT  XPKtb_responsable PRIMARY KEY    (id_proyecto  ,id_empleado  )
+;
+
+
+CREATE TABLE tb_rol
+(
+	id_rol  integer  NOT NULL ,
+	v_descripcion  varchar(50)  NULL ,
+	b_estado  char(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_rol
+	ADD CONSTRAINT  XPKtb_rol PRIMARY KEY    (id_rol  )
+;
+
+
+CREATE TABLE tb_subcategoria
+(
+	id_subcateg  integer  NOT NULL ,
+	v_descripcion  varchar(200)  NULL ,
+	b_estado  char(1)  NULL ,
+	i_id_usuario_crea  integer  NOT NULL ,
+	f_fecha_reg_crea  timestamp  NOT NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	f_fecha_reg_mod  timestamp  NULL 
+)
+;
+
+
+ALTER TABLE tb_subcategoria
+	ADD CONSTRAINT  XPKtb_subcategoria PRIMARY KEY    (id_subcateg  )
+;
+
+
+CREATE TABLE tb_tipo_doc
+(
+	id_tipo_doc  integer  NOT NULL ,
+	v_descripcion  character(200)  NULL ,
+	b_estado  CHAR(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_tipo_doc
+	ADD CONSTRAINT  XPKtb_tipo_doc PRIMARY KEY    (id_tipo_doc  )
+;
+
+
+CREATE TABLE tb_tipo_persona
+(
+	id_tipo_pers  INTEGER  NOT NULL ,
+	v_descripcion  character(200)  NULL ,
+	b_estado  CHAR(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_tipo_persona
+	ADD CONSTRAINT  XPKtb_tipo_persona PRIMARY KEY    (id_tipo_pers  )
+;
+
+
+CREATE TABLE tb_tipo_producto
+(
+	id_tipo_prod  integer  NOT NULL ,
+	v_descripcion  character(200)  NULL ,
+	b_estado  CHAR(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_tipo_producto
+	ADD CONSTRAINT  XPKtb_tipo_producto PRIMARY KEY    (id_tipo_prod  )
+;
+
+
+CREATE TABLE tb_ubigeo
+(
+	id_dep  CHAR(2)  NOT NULL ,
+	id_pro  CHAR(2)  NOT NULL ,
+	id_dis  CHAR(2)  NOT NULL ,
+	v_dep  varchar(50)  NULL ,
+	v_pro  varchar(50)  NULL ,
+	v_dis  varchar(50)  NULL ,
+	b_estado  char(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_ubigeo
+	ADD CONSTRAINT  XPKtb_ubigeo PRIMARY KEY    (id_dep  ,id_pro  ,id_dis  )
+;
+
+
+CREATE TABLE tb_usuario
+(
+	id_empleado  integer  NOT NULL ,
+	v_usuario  varchar(20)  NULL ,
+	d_fec_alta  timestamp  NULL ,
+	d_fec_baja  timestamp  NULL ,
+	v_authi  varchar(50)  NULL ,
+	v_es_usua  char(1)  NULL ,
+	d_fec_mod_auth  timestamp  NULL ,
+	n_intentos  integer  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	f_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	f_fecha_reg_mod  timestamp  NULL ,
+	b_estado  char(1)  NULL 
+)
+;
+
+
+ALTER TABLE tb_usuario
+	ADD CONSTRAINT  XPKtb_usuario PRIMARY KEY    (id_empleado  )
+;
+
+
+CREATE TABLE tb_usuario_auth
+(
+	d_fec_ini  timestamp  NULL ,
+	v_authi  varchar(20)  NULL ,
+	b_estado  char(1)  NULL ,
+	v_ip  varchar(200)  NULL ,
+	v_usuario  varchar(20)  NULL ,
+	id_auth  integer  NOT NULL 
+)
+;
+
+
+ALTER TABLE tb_usuario_auth
+	ADD CONSTRAINT  XPKtb_usuario_auth PRIMARY KEY    (id_auth  )
+;
+
+
+CREATE TABLE tb_usuario_opc
+(
+	id_empleado  integer  NULL ,
+	id_opciones  integer  NOT NULL ,
+	b_estado  char(1)  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	f_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	f_fecha_reg_mod  timestamp  NULL ,
+	id_rol  integer  NULL 
+)
+;
+
+
+ALTER TABLE tb_usuario_opc
+	ADD CONSTRAINT  XPKtb_usuario_opc PRIMARY KEY    (id_opciones  )
+;
+
+
+CREATE TABLE tb_usuario_rol
+(
+	id_empleado  integer  NULL ,
+	id_rol  integer  NOT NULL 
+)
+;
+
+
+ALTER TABLE tb_usuario_rol
+	ADD CONSTRAINT  XPKtb_usuario_rol PRIMARY KEY    (id_rol  )
+;
+
+
+CREATE TABLE tb_viatico
+(
+	id_empleado  integer  NULL ,
+	id_viatico  integer  NOT NULL ,
+	v_descripcion  varchar(2000)  NULL ,
+	d_fec_inic  timestamp  NULL ,
+	d_fec_cierre_rend  timestamp  NULL ,
+	n_devolu_rend  numeric(10,2)  NULL ,
+	n_reemb_rend  numeric(10,2)  NULL ,
+	v_descrip_rend  varchar(2000)  NULL ,
+	n_monto_gasto  numeric(10,2)  NULL ,
+	n_monto_asig  numeric(10,2)  NULL ,
+	b_estado  char(1)  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	f_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	f_fecha_reg_mod  timestamp  NULL ,
+	v_cod_etapa  varchar(5)  NULL 
+)
+;
+
+
+ALTER TABLE tb_viatico
+	ADD CONSTRAINT  XPKtb_viatico PRIMARY KEY    (id_viatico  )
+;
+
+
+CREATE TABLE tb_viatico_det
+(
+	id_viatico  integer  NULL ,
+	id_viat_det  integer  NOT NULL ,
+	n_monto  NUMERIC(10,2)  NULL ,
+	d_fec_asig  timestamp  NULL ,
+	b_estado  char(1)  NULL ,
+	i_id_usuario_crea  integer  NULL ,
+	f_fecha_reg_crea  timestamp  NULL ,
+	i_id_usuario_mod  integer  NULL ,
+	f_fecha_reg_mod  timestamp  NULL 
+)
+;
+
+
+ALTER TABLE tb_viatico_det
+	ADD CONSTRAINT  XPKtb_viatico_det PRIMARY KEY    (id_viat_det  )
+;
+
+
+
+ALTER TABLE tb_actividad
+	ADD CONSTRAINT  R_5 FOREIGN KEY (id_proyecto) REFERENCES tb_proyecto(id_proyecto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+ 
+
+
+
+ALTER TABLE tb_categoria_det
+	ADD CONSTRAINT  R_39 FOREIGN KEY (id_categoria) REFERENCES tb_categoria(id_categoria)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_categoria_det
+	ADD CONSTRAINT  R_40 FOREIGN KEY (id_subcateg) REFERENCES tb_subcategoria(id_subcateg)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_cotizacion
+	ADD CONSTRAINT  R_28 FOREIGN KEY (id_dep,id_pro,id_dis) REFERENCES tb_ubigeo(id_dep,id_pro,id_dis)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_cotizacion
+	ADD CONSTRAINT  R_34 FOREIGN KEY (id_persona) REFERENCES tb_persona_det(id_persona)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_cotizacion
+	ADD CONSTRAINT  R_35 FOREIGN KEY (id_empleado_vendedor) REFERENCES tb_empleado(id_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_cotizacion_det
+	ADD CONSTRAINT  R_16 FOREIGN KEY (id_cotizacion) REFERENCES tb_cotizacion(id_cotizacion)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_egreso
+	ADD CONSTRAINT  R_21 FOREIGN KEY (id_persona) REFERENCES tb_persona_det(id_persona)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_egreso
+	ADD CONSTRAINT  R_3 FOREIGN KEY (id_proyecto) REFERENCES tb_proyecto(id_proyecto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_egreso
+	ADD CONSTRAINT  R_8 FOREIGN KEY (id_empresa) REFERENCES tb_empresa(id_empresa)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_egreso
+	ADD CONSTRAINT  R_41 FOREIGN KEY (id_categoria,id_subcateg) REFERENCES tb_categoria_det(id_categoria,id_subcateg)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_empleado
+	ADD CONSTRAINT  R_33 FOREIGN KEY (id_persona) REFERENCES tb_personas(id_persona)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_empresa_emp_conf
+	ADD CONSTRAINT  R_13 FOREIGN KEY (id_empresa) REFERENCES tb_empresa(id_empresa)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_empresa_emp_conf
+	ADD CONSTRAINT  R_12 FOREIGN KEY (id_empleado) REFERENCES tb_empleado(id_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_ingreso
+	ADD CONSTRAINT  R_20 FOREIGN KEY (id_persona) REFERENCES tb_persona_det(id_persona)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_ingreso
+	ADD CONSTRAINT  R_4 FOREIGN KEY (id_proyecto) REFERENCES tb_proyecto(id_proyecto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_ingreso
+	ADD CONSTRAINT  R_7 FOREIGN KEY (id_empresa) REFERENCES tb_empresa(id_empresa)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_ingreso_det
+	ADD CONSTRAINT  R_24 FOREIGN KEY (id_ingreso) REFERENCES tb_ingreso(id_ingreso)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_ingreso_det
+	ADD CONSTRAINT  R_42 FOREIGN KEY (id_tipo_prod) REFERENCES tb_tipo_producto(id_tipo_prod)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_persona_det
+	ADD CONSTRAINT  R_19 FOREIGN KEY (id_persona) REFERENCES tb_personas(id_persona)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_persona_det
+	ADD CONSTRAINT  R_22 FOREIGN KEY (id_grupo) REFERENCES tb_grupo(id_grupo)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_personas
+	ADD CONSTRAINT  R_17 FOREIGN KEY (id_tipo_pers) REFERENCES tb_tipo_persona(id_tipo_pers)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_personas
+	ADD CONSTRAINT  R_18 FOREIGN KEY (id_tipo_doc) REFERENCES tb_tipo_doc(id_tipo_doc)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_proyecto
+	ADD CONSTRAINT  R_6 FOREIGN KEY (id_empresa) REFERENCES tb_empresa(id_empresa)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_proyecto
+	ADD CONSTRAINT  R_26 FOREIGN KEY (id_dep,id_pro,id_dis) REFERENCES tb_ubigeo(id_dep,id_pro,id_dis)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_proyecto
+	ADD CONSTRAINT  R_1 FOREIGN KEY (id_cotizacion) REFERENCES tb_cotizacion(id_cotizacion)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_responsable
+	ADD CONSTRAINT  R_10 FOREIGN KEY (id_proyecto) REFERENCES tb_proyecto(id_proyecto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_responsable
+	ADD CONSTRAINT  R_36 FOREIGN KEY (id_empleado) REFERENCES tb_empleado(id_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_usuario
+	ADD CONSTRAINT  R_14 FOREIGN KEY (id_empleado) REFERENCES tb_empleado(id_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_usuario_opc
+	ADD CONSTRAINT  R_29 FOREIGN KEY (id_empleado) REFERENCES tb_usuario(id_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_usuario_opc
+	ADD CONSTRAINT  R_30 FOREIGN KEY (id_opciones) REFERENCES tb_opciones(id_opciones)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_usuario_opc
+	ADD CONSTRAINT  R_44 FOREIGN KEY (id_rol) REFERENCES tb_rol(id_rol)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_usuario_rol
+	ADD CONSTRAINT  R_32 FOREIGN KEY (id_empleado) REFERENCES tb_usuario(id_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE tb_usuario_rol
+	ADD CONSTRAINT  R_31 FOREIGN KEY (id_rol) REFERENCES tb_rol(id_rol)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_viatico
+	ADD CONSTRAINT  R_43 FOREIGN KEY (id_empleado) REFERENCES tb_empleado(id_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
+
+
+
+ALTER TABLE tb_viatico_det
+	ADD CONSTRAINT  R_9 FOREIGN KEY (id_viatico) REFERENCES tb_viatico(id_viatico)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+;
