@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,14 +32,17 @@ public class TbEmpresa {
     private Integer iIdUsuarioMod;
     private Date fFecRegCrea;
     private Date fFecRegMod;
-    private Set<TbEmpresa> tbEmpresa = new HashSet<TbEmpresa>(0);
+    
+
+    private List<TbProyecto> tbproyecto;
+    //private Set<TbEmpresa> tbEmpresa = new HashSet<TbEmpresa>(0);
 
     public TbEmpresa() {
     }
 
     public TbEmpresa(Integer idEmpresa, String cNroRuc, String vRazonSocial, 
             String vDireccion, String vSigla, String vAlias, String bEstado, 
-            Integer iIdUsuarioCrea, Integer iIdUsuarioMod, Date fFecRegCrea, Date fFecRegMod, Set<TbEmpresa> tbEmpresa) {
+            Integer iIdUsuarioCrea, Integer iIdUsuarioMod, Date fFecRegCrea, Date fFecRegMod, List<TbProyecto> tbProyecto/*, Set<TbEmpresa> tbEmpresa*/) {
         this.idEmpresa = idEmpresa;
         this.cNroRuc = cNroRuc;
         this.vRazonSocial = vRazonSocial;
@@ -48,7 +54,8 @@ public class TbEmpresa {
         this.iIdUsuarioMod = iIdUsuarioMod;
         this.fFecRegCrea = fFecRegCrea;
         this.fFecRegMod = fFecRegMod;
-        this.tbEmpresa = tbEmpresa;
+        //this.tbEmpresa = tbEmpresa;
+        this.tbproyecto = tbProyecto;
     }
 
     @Id
@@ -154,7 +161,7 @@ public class TbEmpresa {
         this.fFecRegMod = fFecRegMod;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tbEmpresa")
+   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "tbEmpresa")
     @JsonManagedReference
     public Set<TbEmpresa> getTbEmpresa() {
         return tbEmpresa;
@@ -162,6 +169,18 @@ public class TbEmpresa {
 
     public void setTbEmpresa(Set<TbEmpresa> tbEmpresa) {
         this.tbEmpresa = tbEmpresa;
+    }*/
+
+    @OneToMany
+    @JoinColumn(name = "id_empresa")
+    public List<TbProyecto> getTbproyecto() {
+        return tbproyecto;
     }
+
+    public void setTbproyecto(List<TbProyecto> tbproyecto) {
+        this.tbproyecto = tbproyecto;
+    }
+    
+    
     
 }

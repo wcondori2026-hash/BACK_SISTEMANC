@@ -69,7 +69,7 @@ public class ProyectoService {
    
      
      public TbProyecto guardarProyecto(TbProyecto proyecto) {
-        return ncProyectoRepositorio.save(proyecto); // Aquí insertamos el dato
+        return ncProyectoRepositorio.save(proyecto); 
     }
     
      

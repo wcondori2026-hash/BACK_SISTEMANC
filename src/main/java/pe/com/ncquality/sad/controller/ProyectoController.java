@@ -187,7 +187,7 @@ public class ProyectoController {
     
     
     @ApiOperation(value = "Grabar registro de proyectos")
-    @RequestMapping(value = "/grabarProyecto", method = RequestMethod.POST)
+    @RequestMapping(value = "/grabarProyecto",consumes = "application/json", method = RequestMethod.POST)
     public ProcessResult<TbProyecto> grabarProyecto(@RequestBody TbProyecto proyecto) {
         depurador.info("::::::::::::::: Grabar nuevo Proyecto :::::::::::::::");
 
@@ -195,6 +195,29 @@ public class ProyectoController {
 
         try {
             TbProyecto saved = genericService.save(ncProyectoRepositorio, proyecto);
+
+            result.setCodigo("001");
+            result.setMessage("Proyecto grabado correctamente");
+
+        } catch (Exception e) {
+            depurador.error("Error al grabar el proyecto", e);
+            result.setCodigo("002");
+            result.setMessage("Ocurrió un error al grabar el proyecto");
+            result.setException(e.getMessage());
+        }
+
+        return result;
+    }
+    
+    @ApiOperation(value = "Obtener por Id la lista de proyectos")
+    @RequestMapping(value = "/obtenerProyectoById",consumes = "application/json", method = RequestMethod.POST)
+    public ProcessResult<TbProyecto> ObtenerProyecto(@RequestBody Integer id) {
+        depurador.info("::::::::::::::: Obtener Proyecto :::::::::::::::");
+
+        ProcessResult<TbProyecto> result = new ProcessResult<>();
+
+        try {
+            result.setResult(genericService.findById(ncProyectoRepositorio, id)); 
 
             result.setCodigo("001");
             result.setMessage("Proyecto grabado correctamente");

@@ -1,6 +1,8 @@
 
 package pe.com.ncquality.sad.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,7 +38,7 @@ public class TbProyecto {
     private Date dFecRegCrea;
     private Integer iIdUsuarioMod;
     private Date dFecRegMod;
-    private Set<TbProyecto> tbProyecto = new HashSet<TbProyecto>(0);
+    //private Set<TbProyecto> tbProyecto = new HashSet<TbProyecto>(0);
     private TbEmpresa tbEmpresa;
 
     public TbProyecto() {
@@ -66,7 +68,7 @@ public class TbProyecto {
     public TbProyecto(Integer idProyecto, String sCodEtapa, String vCodTipoObra, String vCodTipoSuelo, String vNombProyecto, Date fFecIniProg,
             Date fFecFinProg, Date fFecIniEjec, Date fFecFinEjec, String vDireccion, String vDescripcion, 
             char bEstado, Integer iIdUsuarioCrea, Date dFecRegCrea, Integer iIdUsuarioMod, Date dFecRegMod, 
-            Set<TbProyecto> tbProyecto, TbEmpresa tbEmpresa) {
+            /*Set<TbProyecto> tbProyecto/*, */TbEmpresa tbEmpresa) {
         this.idProyecto = idProyecto;
         this.sCodEtapa = sCodEtapa;
         this.vCodTipoObra = vCodTipoObra;
@@ -83,8 +85,8 @@ public class TbProyecto {
         this.dFecRegCrea = dFecRegCrea;
         this.iIdUsuarioMod = iIdUsuarioMod;
         this.dFecRegMod = dFecRegMod;
-        this.tbProyecto = tbProyecto;
-         this.tbEmpresa = tbEmpresa;
+       // this.tbProyecto = tbProyecto;
+        this.tbEmpresa = tbEmpresa;
     }
     
     
@@ -241,25 +243,26 @@ public class TbProyecto {
         this.dFecRegMod = dFecRegMod;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tbProyecto")
+   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "tbProyecto")
     public Set<TbProyecto> getTbProyecto() {
         return tbProyecto;
     }
 
     public void setTbProyecto(Set<TbProyecto> tbProyecto) {
         this.tbProyecto = tbProyecto;
-    }
+    }*/
 
-    @ManyToOne
-    @JoinColumn (name = "id_empresa", referencedColumnName = "id_empresa")
+    /*@ManyToOne
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idEmpresa")
+   @JoinColumn (name = "id_empresa")
+    //@ManyToOne(fetch = FetchType.LAZY) // 
+    //@JoinColumn(name = "id_empresa", nullable = false) // 
     public TbEmpresa getTbEmpresa() {
         return tbEmpresa;
     }
 
     public void setTbEmpresa(TbEmpresa tbEmpresa) {
         this.tbEmpresa = tbEmpresa;
-    }
-    
-    
+    }*/
     
 }
