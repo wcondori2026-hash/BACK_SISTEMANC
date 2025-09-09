@@ -46,6 +46,7 @@ public class AuthController {
             // Validaciones básicas
             String nombreUsuario = usuario.get("usuario").toString().toUpperCase();
             String clave = usuario.get("clave").toString();
+            String empresa = usuario.get("empresa").toString();
 
             ResponseUsuario responseUsuario = usuarioService.validarUsuario(nombreUsuario, clave);
             String codigoRespuesta = responseUsuario.getCodRespuesta();
